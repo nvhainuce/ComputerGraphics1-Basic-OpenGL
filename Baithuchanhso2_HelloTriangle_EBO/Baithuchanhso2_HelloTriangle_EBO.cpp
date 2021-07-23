@@ -17,17 +17,20 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 //bước 0.0: chuẩn bị shader
 const GLchar* vertexShaderSource = "#version 330 core\n"
 "layout (location=0) in vec3 position;\n"
+"out vec4 vertexColor;\n"
 "void main()\n"
 "{\n"
 "gl_Position= vec4(position.x,position.y,position.z,1);\n"
+"vertexColor=vec4(position.x,position.y,position.z,1);\n"
 "}\0";
 const GLchar* fragmentShaderSource = "#version 330 core\n"
+"in vec4 vertexColor;\n"
 "out vec4 color;\n"
 "void main()\n"
 "{\n"
-"color= vec4(0.0f,1.0f,1.0f,1.0f);\n"  
+"color= vertexColor;\n"
 "}\0";
-  
+
 int main(void)
 {
 	glfwInit();
@@ -104,33 +107,44 @@ int main(void)
 	glDeleteShader(fragmentShader);
 
 	//bước 1: khai báo vertex input (vertex data)
-	GLfloat vertices[] = {
-		// tam giac 1
-		-0.5f,-0.5f,0.0f,  //bottom-left
-		0.5f,-0.5f,0.0f,   //bottom right
-		-0.5f,0.5f,0.0f,    //Top Left 
-	
+	GLfloat vertices_hinhvuong[] = {
+		0.5f,0.5f,0.0f,  //top-right 0
+		0.5f,-0.5f,0.0f,   //bottom right 1 
+		-0.5f,-0.5f,0.0f,    //bot Left 2
+	    -0.5f,0.5f,0.0f    //Top Left  3
 	};
-	//Bước 2: Khởi tạo VBO, VAO
+	GLuint indices[] = {
+	    0,1,3,	//tam giac 1
+		1,2,3	//tam giac 2
+	};
+
+	//Bước 2: Khởi tạo VBO, VAO,EBO
 		//b2.1 VAO
 	GLuint VAO;
+	GLuint VBO;
+	GLuint EBO;
 	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
 	//bind VAO
 	glBindVertexArray(VAO);
 		//b2.2 VBO
-		GLuint VBO;
-		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO); // liên kết (bind) VBO
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_hinhvuong), vertices_hinhvuong, GL_STATIC_DRAW);
+		//b2.3 EBO
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 		//set attribute point
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0); 
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
+
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO); không đc unbind EBO
 		glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind VBO , cho phép gọi hàm glVertexAttribPointer trong VBO
 //unbind VAO
 	glBindVertexArray(0);
 
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
 	//Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -146,7 +160,8 @@ int main(void)
 		glUseProgram(shaderProgram);
 
 		glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES,0,3);
+		/*glDrawArrays(GL_TRIANGLES, 0, 6);*/
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);  //glDrawElements(Primitive type,count- số đỉnh vẽ,kiểu dữ liệu của indices,0);
 		glBindVertexArray(0);
 
 		///swap
