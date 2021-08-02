@@ -16,6 +16,9 @@
     <Filter Include="Shader classs">
       <UniqueIdentifier>{756b7889-f471-442e-83af-afe72f4de017}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{f053c4e2-e989-44b6-a529-b2db5899e84c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Baithuchanhso3_Shader_ClassShader.cpp">
@@ -29,5 +32,13 @@
     <ClInclude Include="Shader.h">
       <Filter>Shader classs</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fShader_b3 .frag">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="vShader_b3.vertex">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
