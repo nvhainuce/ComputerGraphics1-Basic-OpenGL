@@ -58,7 +58,7 @@ int main(void)
 	glfwGetFramebufferSize(window, &widthW, &heightW);    // lấy kích thước framebuffer   (chú ý)
 	glViewport(0, 0, widthW, heightW);;
 
-
+	//khởi tạo shader
 	Shader ourShader("vShader_b4.vertex", "fShader_b4 .frag");
 
 
