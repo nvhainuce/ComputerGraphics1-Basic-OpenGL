@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso3_Shader_Unifo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso3_Shader_ClassShader", "Baithuchanhso3_Shader_ClassShader\Baithuchanhso3_Shader_ClassShader.vcxproj", "{393CE3DA-2F8B-4290-B414-C65DF5960E14}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso4_Texture", "Baithuchanhso4_Texture\Baithuchanhso4_Texture.vcxproj", "{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{393CE3DA-2F8B-4290-B414-C65DF5960E14}.Release|x64.Build.0 = Release|x64
 		{393CE3DA-2F8B-4290-B414-C65DF5960E14}.Release|x86.ActiveCfg = Release|Win32
 		{393CE3DA-2F8B-4290-B414-C65DF5960E14}.Release|x86.Build.0 = Release|Win32
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Debug|x64.ActiveCfg = Debug|x64
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Debug|x64.Build.0 = Debug|x64
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Debug|x86.Build.0 = Debug|Win32
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Release|x64.ActiveCfg = Release|x64
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Release|x64.Build.0 = Release|x64
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Release|x86.ActiveCfg = Release|Win32
+		{C2F63D6B-D853-4CB9-A64C-9FD4FF89352A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

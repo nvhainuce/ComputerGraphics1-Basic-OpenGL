@@ -1,4 +1,7 @@
-﻿// Include standard headers
+﻿//khai báo và định thư viện stb_image
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+// Include standard headers
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -31,7 +34,7 @@ int main(void)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Tạo 1 cửa sổ GLFWwindow 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 3 - class shader", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 4 - Texture", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -51,20 +54,20 @@ int main(void)
 
 	// Định nghĩa kích thước viewport
 	 // Define the viewport dimensions
-	int width, height;
-	glfwGetFramebufferSize(window, &width, &height);    // lấy kích thước framebuffer   (chú ý)
-	glViewport(0, 0, width, height);;
+	int widthW, heightW;
+	glfwGetFramebufferSize(window, &widthW, &heightW);    // lấy kích thước framebuffer   (chú ý)
+	glViewport(0, 0, widthW, heightW);;
 
 
-	Shader ourShader("vShader_b3.vertex", "fShader_b3 .frag");
+	Shader ourShader("vShader_b4.vertex", "fShader_b4 .frag");
 
 
 	//bước 1: khai báo vertex input (vertex data)
 	GLfloat vertices[] = {
-		// vị trí - position      ///color         
-		-0.5f,-0.5f,0.0f,		1.0f,0.0f,0.0f,//bottom-left
-		0.5f,-0.5f,0.0f,	    0.0f,1.0f,0.0f,//bottom right
-		0.0f,0.5f,0.0f,	    0.0f,0.0f,1.0f//Top  
+		// vị trí - position      ///color         //texture coordinate (s,t)
+		-0.5f,-0.5f,0.0f,		1.0f,0.0f,0.0f,	   0.0f,0.0f,//bottom-left
+		0.5f,-0.5f,0.0f,	    0.0f,1.0f,0.0f,    1.0f,0.0f,//bottom right
+		0.0f,0.5f,0.0f,	       0.0f,0.0f,1.0f,     0.5f,1.0f //Top  
 	};
 	//Bước 2: Khởi tạo VBO, VAO
 		//b2.1 VAO
@@ -79,15 +82,52 @@ int main(void)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	//position attribute 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8* sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	//Color attribute 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (GLvoid*)(3*sizeof(float)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+	//texture coord attribute 
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (GLvoid*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind VBO , cho phép gọi hàm glVertexAttribPointer trong VBO
 //unbind VAO
 	glBindVertexArray(0);
+
+	///Load và tạo 1 texture
+	//khởi tạo texture
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture); 
+		//cài đặt tham số texture wrapping
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		//cài đặt tham số texture filtering 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//tải image, tạo texture + mipmaps
+		int width, height, nrChannels;
+		unsigned char* image = stbi_load("texture_wood_1.jpeg", &width, &height, &nrChannels, 0);
+		if (image)
+		{
+			///tạo mipmaps
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		else
+		{
+			//đưa ra thông báo lỗi load image
+			std::cout << "Failed to Load texture" << std::endl;
+		}
+		//delete image 
+		stbi_image_free(image);
+
+	//unbind texture
+	glBindTexture(GL_TEXTURE_2D, 0);  //unbind texture
+	
+	
+
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	//Game Loop
@@ -99,6 +139,9 @@ int main(void)
 		//xóa color buffer
 		glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+
+		//bind texture
+		glBindTexture(GL_TEXTURE_2D, texture);
 
 		//Buoc 3 Vẽ hình 1 hình tam giác
 
