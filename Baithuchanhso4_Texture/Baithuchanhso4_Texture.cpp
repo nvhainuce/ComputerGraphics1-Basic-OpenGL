@@ -87,7 +87,7 @@ int main(void)
 	//Color attribute 
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (GLvoid*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
-	//texture coord attribute 
+	//texture coordinate attribute 
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (GLvoid*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
@@ -97,9 +97,9 @@ int main(void)
 
 	///Load và tạo 1 texture
 	//khởi tạo texture
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture); 
+	GLuint texture_wood;
+	glGenTextures(1, &texture_wood);
+	glBindTexture(GL_TEXTURE_2D, texture_wood);
 		//cài đặt tham số texture wrapping
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -108,7 +108,7 @@ int main(void)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//tải image, tạo texture + mipmaps
 		int width, height, nrChannels;
-		unsigned char* image = stbi_load("texture_wood_1.jpeg", &width, &height, &nrChannels, 0);
+		unsigned char* image = stbi_load("texture_wood2.jpg", &width, &height, &nrChannels, 0);
 		if (image)
 		{
 			///tạo mipmaps
@@ -141,7 +141,7 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//bind texture
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glBindTexture(GL_TEXTURE_2D, texture_wood);
 
 		//Buoc 3 Vẽ hình 1 hình tam giác
 
