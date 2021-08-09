@@ -23,6 +23,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso5_Transform", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso5_Transform_EBO", "Baithuchanhso5_Transform_EBO\Baithuchanhso5_Transform_EBO.vcxproj", "{1D9D3EF5-AE86-4855-BC01-52026EB3D6C5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso6_Coordinate_MVP", "Baithuchanhso6_Coordinate_MVP\Baithuchanhso6_Coordinate_MVP.vcxproj", "{46E5A2A8-3039-436A-8440-9D5933795B79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -111,6 +113,14 @@ Global
 		{1D9D3EF5-AE86-4855-BC01-52026EB3D6C5}.Release|x64.Build.0 = Release|x64
 		{1D9D3EF5-AE86-4855-BC01-52026EB3D6C5}.Release|x86.ActiveCfg = Release|Win32
 		{1D9D3EF5-AE86-4855-BC01-52026EB3D6C5}.Release|x86.Build.0 = Release|Win32
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Debug|x64.ActiveCfg = Debug|x64
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Debug|x64.Build.0 = Debug|x64
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Debug|x86.ActiveCfg = Debug|Win32
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Debug|x86.Build.0 = Debug|Win32
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Release|x64.ActiveCfg = Release|x64
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Release|x64.Build.0 = Release|x64
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Release|x86.ActiveCfg = Release|Win32
+		{46E5A2A8-3039-436A-8440-9D5933795B79}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
