@@ -1,0 +1,12 @@
+#version 330 core
+layout (location=0) in vec3 aPos;
+layout (location=1) in vec2 aTexCoord;  //vị trí thuộc tính đỉnh TexCoord là =1
+out vec2 TexCoord;
+uniform mat4 model;   //ma tran model
+uniform mat4 view;   //ma tran view
+uniform mat4 projection;   //ma tran projection
+void main()
+{
+	gl_Position=projection*view*model*vec4(aPos,1.0);  ///gl_Position giá trị đỉnh đầu ra của vertex shader
+	TexCoord=aTexCoord;
+}   
