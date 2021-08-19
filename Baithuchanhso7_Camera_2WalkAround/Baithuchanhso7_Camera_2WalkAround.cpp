@@ -24,11 +24,20 @@ GLFWwindow* window;
 //function
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void key_callback_baylen(GLFWwindow* window, int key, int scancode, int action, int mode);
+void key_callback_domovement(GLFWwindow* window);
 
 
 const GLuint WIDTH = 800;
 const GLuint HEIGHT = 600;
 float Docaothem;
+
+//camera 
+glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+//timing
+float deltaTime = 0.0f; //thời gian giữa khung hình hiện tại (current frame) và khung hình cuối (lastframe)
+float lastFrame = 0.0f;// thời gian khung hình cuối
 
 int main(void)
 {
@@ -206,6 +215,14 @@ int main(void)
 	//Game Loop
 	while (!glfwWindowShouldClose(window))
 	{
+		//tính thời gian mỗi khung hình (per-frame time)
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+		
+	    //input
+		key_callback_domovement(window);
+
 		// check sự kiện  (ấn nút bàn phím, chuột,...)
 		glfwPollEvents();
 		//Render
@@ -224,13 +241,11 @@ int main(void)
 
 		//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));//muốn xoay mô hình đối tượng 1 góc 30 9theo trục x
 
-		float radius = 10.0f;
-		float camX = sin(glfwGetTime()) * radius;
-		float camZ = cos(glfwGetTime()) * radius;
-	    view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 100.0f);
+		
+		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 		//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
-	    //lấy vị trị của uniform
+		//lấy vị trị của uniform
 		GLuint UniformLocation_model = glGetUniformLocation(ourShader.IDProgram, "model");
 		GLuint UniformLocation_view = glGetUniformLocation(ourShader.IDProgram, "view");
 		GLuint UniformLocation_projection = glGetUniformLocation(ourShader.IDProgram, "projection");
@@ -278,4 +293,22 @@ void key_callback_baylen(GLFWwindow* window, int key, int scancode, int action, 
 	{
 		Docaothem = Docaothem + 0.2f;
 	}
+
+}
+void key_callback_domovement(GLFWwindow* window)
+{
+	//kiểm tra cửa close window
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE)== GLFW_PRESS)
+		glfwSetWindowShouldClose(window, GL_TRUE);
+
+	//cài đặt di chuyển camera thông qua input từ bàn phím
+	float cameraSpeed = 2.5*deltaTime;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		cameraPos +=   cameraSpeed * cameraFront; //cameraPos = cameraPos + cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cameraPos -= cameraSpeed * cameraFront;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }

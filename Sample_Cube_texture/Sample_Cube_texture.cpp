@@ -77,12 +77,12 @@ int main(void)
 		// vị trí - position         //texture coordinate (s,t)(u,v)
 		   //x       y     z       u     v
 		   //Behind-Back(Z-)(XY)  (left) (down)
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-			 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+			-0.5f, -0.5f, -1.5f,  0.0f, 0.0f,
+			 0.5f, -0.5f, -1.5f,  1.0f, 0.0f,
+			 0.5f,  0.5f, -1.5f,  1.0f, 1.0f,
+			 0.5f,  0.5f, -1.5f,  1.0f, 1.0f,
+			-0.5f,  0.5f, -1.5f,  0.0f, 1.0f,
+			-0.5f, -0.5f, -1.5f,  0.0f, 0.0f,
 
 			-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 			 0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
@@ -227,10 +227,10 @@ int main(void)
 		float radius = 10.0f;
 		float camX = sin(glfwGetTime()) * radius;
 		float camZ = cos(glfwGetTime()) * radius;
-	    view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 100.0f);
+		view = glm::lookAt(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 		//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
-	    //lấy vị trị của uniform
+	//lấy vị trị của uniform
 		GLuint UniformLocation_model = glGetUniformLocation(ourShader.IDProgram, "model");
 		GLuint UniformLocation_view = glGetUniformLocation(ourShader.IDProgram, "view");
 		GLuint UniformLocation_projection = glGetUniformLocation(ourShader.IDProgram, "projection");
@@ -243,12 +243,12 @@ int main(void)
 
 		glBindVertexArray(VAO);
 		int lengA = sizeof(List_CubePosition) / sizeof(List_CubePosition[0]);
-		for (int i = 0; i < lengA; i++)
+		for (int i = 0; i < 1; i++)
 		{
-			model = glm::translate(view, List_CubePosition[i]);
+		/*	model = glm::translate(view, List_CubePosition[i]);
 			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			glUniformMatrix4fv(UniformLocation_model, 1, GL_FALSE, glm::value_ptr(model));
+			glUniformMatrix4fv(UniformLocation_model, 1, GL_FALSE, glm::value_ptr(model));*/
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
 		glBindVertexArray(0);
