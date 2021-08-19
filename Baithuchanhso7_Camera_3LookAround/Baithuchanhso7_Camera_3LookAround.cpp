@@ -24,14 +24,23 @@ GLFWwindow* window;
 //function
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void key_callback_Input_dichchuyenCamera_BanPhim(GLFWwindow* window);
-
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 //window
 const GLuint WIDTH = 800;
 const GLuint HEIGHT = 600;
 //camera
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);        //vi tri camera
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);     //vector hướng của camera
-glm::vec3 cameraUp= glm::vec3(0.0f, 1.0f, 0.0f);
+glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+bool firstMouse = true;
+
+float yaw = -90.0f;
+float pitch = 0.0f;
+float lastX = WIDTH / 2;
+float lastY = HEIGHT / 2;
+float fov = 45.0f;
 
 //timing
 float deltaTime = 0.0f; //thời gian giữa khung hình hiện tại và khung hình cuối
@@ -49,7 +58,7 @@ int main(void)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Tạo 1 cửa sổ GLFWwindow 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 7 - camera", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 7 - camera - look around", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -58,7 +67,14 @@ int main(void)
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetKeyCallback(window, key_callback);
-	
+	//gọi hàm kt sự kiện thay đổi vị trí chuột
+	glfwSetCursorPosCallback(window, mouse_callback);
+	//gọi hàm kiểm tra sự kiện thay đổi cuộn chuột
+	glfwSetScrollCallback(window, scroll_callback);
+	//gọi hàm set chết độ ẩn chuột trong cửa sổ và ngăn không đưa chuột ra ngoài cửa sổ
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+
 	//Đặt biến glewExperimental về true  (bắt buộc)
 	glewExperimental = GL_TRUE;
 	if (glewInit() != GLEW_OK)
@@ -214,9 +230,9 @@ int main(void)
 	while (!glfwWindowShouldClose(window))
 	{
 		//thời gian mỗi khung hình (per-frame time)
-		float currentFrame = glfwGetTime();    
-		deltaTime = currentFrame - lastframe;  
-		lastframe = currentFrame;              
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastframe;
+		lastframe = currentFrame;
 		//input bàn phím 
 		key_callback_Input_dichchuyenCamera_BanPhim(window);
 		// check sự kiện  (ấn nút bàn phím, chuột,...)
@@ -238,7 +254,7 @@ int main(void)
 		//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));//muốn xoay mô hình đối tượng 1 góc 30 9theo trục x
 		//camera/view transformation
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.01f, 100.0f);
+		projection = glm::perspective(glm::radians(fov), (float)WIDTH / (float)HEIGHT, 0.01f, 1000.0f);
 		//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
 		//lấy vị trị của uniform
 		GLuint UniformLocation_model = glGetUniformLocation(ourShader.IDProgram, "model");
@@ -257,7 +273,7 @@ int main(void)
 		{
 			model = glm::translate(view, List_CubePosition[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
 			glUniformMatrix4fv(UniformLocation_model, 1, GL_FALSE, glm::value_ptr(model));
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
@@ -284,13 +300,57 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void key_callback_Input_dichchuyenCamera_BanPhim(GLFWwindow* window)
 {
-	float cameraSpeed = 3.0f*deltaTime;
+	float cameraSpeed = 3.0f * deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos +=   cameraSpeed * cameraFront; //cameraPos = cameraPos + cameraSpeed * cameraFront;
+		cameraPos += cameraSpeed * cameraFront; //cameraPos = cameraPos + cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		cameraPos -= cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cameraPos -= glm::normalize( glm::cross(cameraFront,cameraUp) )*cameraSpeed;
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+}
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	float xoffset = xpos - lastX;
+	float yoffset = lastY - ypos;  //chiều dương trục y của màn hình là hướng xuống
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+
+	//thêm ràng buộc
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+
+	if (pitch > -89.0f)
+		pitch = -89.0f;
+
+	glm::vec3 front;
+
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	//kết quả hướng của camera
+	cameraFront = glm::normalize(front);
+}
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+{
+	fov -= (float)yoffset;
+	if (fov < 1.0f)
+		fov = 1.0f;
+	if (fov > 45.0f)
+		fov = 45.0f;
 }
