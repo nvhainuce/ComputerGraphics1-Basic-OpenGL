@@ -165,7 +165,7 @@ int main(void)
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind VBO , cho phép gọi hàm glVertexAttribPointer trong VBO
-//unbind VAO
+    //unbind VAO
 	glBindVertexArray(0);
 
 	///Load và tạo 1 texture
