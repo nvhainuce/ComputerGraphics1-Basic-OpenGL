@@ -215,7 +215,7 @@ int main(void)
 	{
 		//thời gian mỗi khung hình (per-frame time)
 		float currentFrame = glfwGetTime();       //               =0.01        -0                                    =0.011        0.01 
-		deltaTime = currentFrame - lastframe;    //deltaTime0 = currentFrame0 - lastframe0;=0.01    /deltaTime1 = currentFrame1 - lastframe1;=0.001
+		deltaTime = currentFrame - lastframe;    //deltaTime0 = currentFrame0 - lastframe0;=0.01    //deltaTime1 = currentFrame1 - lastframe1;=0.001
 		lastframe = currentFrame;                //lastframe0 = currentFrame0;=0.01                  //lastframe1 = currentFrame1;=0.001
 		           
 		//input bàn phím 
@@ -285,7 +285,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void key_callback_Input_dichchuyenCamera_BanPhim(GLFWwindow* window)
 {
-	float cameraSpeed = 2.5f*deltaTime;
+	float cameraSpeed = 2.0f*deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		cameraPos +=   cameraSpeed * cameraFront; //cameraPos = cameraPos + cameraSpeed * cameraFront;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
