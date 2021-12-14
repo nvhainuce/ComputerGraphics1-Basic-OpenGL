@@ -41,7 +41,7 @@ int main(void)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Tạo 1 cửa sổ GLFWwindow 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 4 - Texture", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 5 - EBO", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -174,7 +174,9 @@ int main(void)
 		Trans = glm::scale(Trans, glm::vec3(0.3f, 0.3f, 0.3f)); ///Trans=translate*Trans
 			// roate 60 độ quanh trục y
 		Trans = glm::rotate(Trans, (float)glfwGetTime(), glm::vec3(0.0f, 1.0f, 0.0f)); ///Trans=translate*Trans
+		//Tìm vị trí của uniform tên là "transform" trong Shader Programe là "ourShader"
 		GLuint UniformLocation_Transform = glGetUniformLocation(ourShader.IDProgram, "transform");
+		//sau có khi có vị trí uniform,
 		glUniformMatrix4fv(UniformLocation_Transform, 1, GL_FALSE, glm::value_ptr(Trans));
 
 

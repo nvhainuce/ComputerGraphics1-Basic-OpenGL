@@ -15,6 +15,10 @@
 #include <GLFW/glfw3.h>
 GLFWwindow* window;
 
+//include GLM
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 //function
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -34,7 +38,7 @@ int main(void)
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Tạo 1 cửa sổ GLFWwindow 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bai thuc hanh so 4 - Texture", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Bài thực hành số 5 - transform", nullptr, nullptr);
 	if (window == nullptr)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -59,7 +63,7 @@ int main(void)
 	glViewport(0, 0, widthW, heightW);;
 
 	//khởi tạo shader
-	Shader ourShader("vShader_b4.vertex", "fShader_b4 .frag");
+	Shader ourShader("vShader_b5.vertex", "fShader_b5.frag");
 
 
 	//bước 1: khai báo vertex input (vertex data)
@@ -144,6 +148,21 @@ int main(void)
 		glBindTexture(GL_TEXTURE_2D, texture_wood);
 
 		//Buoc 3 Vẽ hình 1 hình tam giác
+
+			///xác định ma trận biến đổi (các bạn muốn biến đổi đối tượng như nào )
+		glm::mat4 Trans = glm::mat4(1.0f);
+		//dịch chuyển theo x,y,z lần lượt là 0.5f,-0.5f,0.0f
+		//Trans = glm::translate(Trans, glm::vec3(0.0f, -0.5f,1.0f)); ///Trans=Trans*glm::vec3(0.0f, -0.5f,1.0f)
+		//   // scale nhỏ đi 0.3 lần     
+		//Trans = glm::scale(Trans, glm::vec3(0.3f, 0.3f, 0.3f)); ///Trans=Trans*glm::vec3(0.3f, 0.3f, 0.3f)
+		//	// roate 90 độ quanh trục y
+		//Trans = glm::rotate(Trans, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f)); ///Trans=translate*Trans
+		
+		////Tìm vị trí của uniform tên là "transform" trong Shader Programe là "ourShader"
+		GLuint UniformLocation_Transform = glGetUniformLocation(ourShader.IDProgram, "transform");
+		//sau có khi có vị trí uniform,
+		glUniformMatrix4fv(UniformLocation_Transform, 1, GL_FALSE, glm::value_ptr(Trans));
+
 
 		ourShader.use();
 

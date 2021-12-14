@@ -158,7 +158,7 @@
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fShader_b5 .frag" />
+    <None Include="fShader_b5.frag" />
     <None Include="vShader_b5.vertex" />
   </ItemGroup>
   <ItemGroup>

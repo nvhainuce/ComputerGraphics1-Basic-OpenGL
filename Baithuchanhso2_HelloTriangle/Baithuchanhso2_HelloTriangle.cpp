@@ -63,7 +63,7 @@ int main(void)
 	int width, height;
 	glfwGetFramebufferSize(window, &width, &height);    // lấy kích thước framebuffer   (chú ý)
 	glViewport(0, 0, width, height);;
-
+	
 	////// bước 0.1 Build và biên dịch shader program
 	// Vertex shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -121,7 +121,8 @@ int main(void)
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO); // liên kết (bind) VBO
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		//sao chep du lieu vertices vao bo nho
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); 
 
 		//set attribute point
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0); 

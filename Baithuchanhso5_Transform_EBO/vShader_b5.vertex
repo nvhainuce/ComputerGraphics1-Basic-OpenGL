@@ -6,10 +6,10 @@ layout (location=2) in vec2 aTexCoord;  //vị trí thuộc tính đỉnh TexCoo
 out vec3 ourColor; // 
 out vec2 TexCoord;
 
-uniform mat4 Trans;   //ma tranh chuyen tri ( bao gom: xoay, dịch chuyển, scale)
+uniform mat4 transform;   //ma tranh chuyen tri ( bao gom: xoay, dịch chuyển, scale)
 void main()
 {
-	gl_Position=Trans*vec4(aPos,1.0);  ///gl_Position giá trị đỉnh đầu ra của vertex shader
+	gl_Position=transform*vec4(aPos,1.0);  ///gl_Position giá trị đỉnh đầu ra của vertex shader
 	ourColor=aColor;
 	TexCoord=aTexCoord;
 }   

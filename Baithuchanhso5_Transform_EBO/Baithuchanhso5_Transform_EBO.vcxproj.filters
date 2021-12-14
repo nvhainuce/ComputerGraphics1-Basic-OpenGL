@@ -26,7 +26,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fShader_b5 .frag">
+    <None Include="fShader_b5.frag">
       <Filter>Shader Source</Filter>
     </None>
     <None Include="vShader_b5.vertex">

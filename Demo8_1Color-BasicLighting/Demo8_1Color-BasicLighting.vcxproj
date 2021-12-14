@@ -18,11 +18,31 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="fShader_b8.frag" />
+    <None Include="light_cube.frag" />
+    <None Include="light_cube.vertex" />
+    <None Include="vShader_b8.vertex" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="image_cat_y.jpg" />
+    <Image Include="texture_wood2.jpg" />
+    <Image Include="texture_wood_1.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="stb_image.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1d9d3ef5-ae86-4855-bc01-52026eb3d6c5}</ProjectGuid>
-    <RootNamespace>Baithuchanhso5TransformEBO</RootNamespace>
+    <ProjectGuid>{b4fbefe2-413b-4386-b40b-0c48d3a95599}</ProjectGuid>
+    <RootNamespace>Demo81ColorBasicLighting</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -150,17 +170,6 @@
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Baithuchanhso5_Transform_EBO.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="fShader_b5.frag" />
-    <None Include="vShader_b5.vertex" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="stb_image.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

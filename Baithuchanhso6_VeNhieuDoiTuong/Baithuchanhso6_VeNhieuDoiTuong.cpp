@@ -76,7 +76,7 @@ int main(void)
 	GLfloat vertices[] = {
 	// vị trí - position         //texture coordinate (s,t)(u,v)
 
-		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,   
 		 0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
 		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
 		 0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -122,8 +122,8 @@ int main(void)
 	/// khai báo vị trí của các cube trong tọa độ thế giới
 	glm::vec3 List_CubePosition[] = {
 		glm::vec3(0.0f,0.0f,0.0f),
-		glm::vec3(2.0f,4.0f,-14.0f),
-		glm::vec3(-2.0f,-3.0f,-7.0f)
+		glm::vec3(2.0f,4.0f,14.0f),
+		glm::vec3(-2.0f,-3.0f,7.0f)
 	};
 	//GLuint indices[] = {
 	//	0,1,2,  //tam giac 1
@@ -216,7 +216,7 @@ int main(void)
 
 		//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));//muốn xoay mô hình đối tượng 1 góc 30 9theo trục x
 		
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -13.0f));
 		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f,100.0f);
 		//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
 	//lấy vị trị của uniform

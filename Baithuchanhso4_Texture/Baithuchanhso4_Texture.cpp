@@ -66,8 +66,8 @@ int main(void)
 	GLfloat vertices[] = {
 		// vị trí - position      ///color         //texture coordinate (s,t)
 		-0.5f,-0.5f,0.0f,		1.0f,0.0f,0.0f,	   0.0f,0.0f,//bottom-left
-		0.5f,-0.5f,0.0f,	    0.0f,1.0f,0.0f,    1.0f,0.0f,//bottom right
-		0.0f,0.5f,0.0f,	       0.0f,0.0f,1.0f,     0.5f,1.0f //Top  
+	 	 0.5f,-0.5f,0.0f,	    0.0f,1.0f,0.0f,    1.0f,0.0f,//bottom right
+	     0.0f,0.5f,0.0f,	       0.0f,0.0f,1.0f,     0.5f,1.0f //Top  
 	};
 	//Bước 2: Khởi tạo VBO, VAO
 		//b2.1 VAO
