@@ -123,7 +123,7 @@ int main(void)
 	glm::vec3 List_CubePosition[] = {
 		glm::vec3(0.0f,0.0f,0.0f),
 		glm::vec3(2.0f,4.0f,14.0f),
-		glm::vec3(-2.0f,-3.0f,7.0f)
+		glm::vec3(-2.0f,-3.0f,18.0f)
 	};
 	//GLuint indices[] = {
 	//	0,1,2,  //tam giac 1
