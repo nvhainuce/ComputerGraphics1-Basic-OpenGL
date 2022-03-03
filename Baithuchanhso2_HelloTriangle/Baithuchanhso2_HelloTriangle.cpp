@@ -21,6 +21,7 @@ const GLchar* vertexShaderSource = "#version 330 core\n"
 "{\n"
 "gl_Position= vec4(position.x,position.y,position.z,1);\n"
 "}\0";
+
 const GLchar* fragmentShaderSource = "#version 330 core\n"
 "out vec4 color;\n"
 "void main()\n"
@@ -106,11 +107,13 @@ int main(void)
 	//bước 1: khai báo vertex input (vertex data)
 	GLfloat vertices[] = {
 		// tam giac 1
+		//x,y,z
 		-0.5f,-0.5f,0.0f,  //bottom-left
 		0.5f,-0.5f,0.0f,   //bottom right
 		-0.5f,0.5f,0.0f,    //Top Left 
 	
 	};
+
 	//Bước 2: Khởi tạo VBO, VAO
 		//b2.1 VAO
 	GLuint VAO;
@@ -121,12 +124,13 @@ int main(void)
 		GLuint VBO;
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO); // liên kết (bind) VBO
-		//sao chep du lieu vertices vao bo nho
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); 
+			//sao chep du lieu vertices[] vao bo nho
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); 
 
-		//set attribute point
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0); 
-		glEnableVertexAttribArray(0);
+			//set attribute point  - Linking Vertex Attributes
+							//(Location=0)-vertexshader		 //  stride:3*4=12     offset: 0
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GL_FLOAT), (GLvoid*)0); 
+			glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0); //unbind VBO , cho phép gọi hàm glVertexAttribPointer trong VBO
 //unbind VAO
 	glBindVertexArray(0);

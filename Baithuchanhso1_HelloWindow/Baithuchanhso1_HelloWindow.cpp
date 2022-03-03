@@ -3,20 +3,18 @@
 //GLEW
 
 #include <GL/glew.h>
-
 //GLFW
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 ////Phần 2. Khai báo các hằng số, biến toàn cục, định nghĩa Hàm/Phương thức
-
 //function
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void key_callback1(GLFWwindow* window, int key, int scancode, int action, int mode);
 //kích thước window
 const GLuint _WIDTH = 800, _HEIGHT = 600;
 
 /// <summary>
-/// Hàm Main, mình bắt đầu ứng dụng tại đây và chạy Game Loop.
+/// Phần 3 :Hàm Main, mình bắt đầu ứng dụng tại đây và chạy Game Loop.
 /// </summary>
 /// <returns></returns>
 int main()
@@ -40,7 +38,7 @@ int main()
 	glfwMakeContextCurrent(window);
 
 	//set key từ bàn phím
-	glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, key_callback1);
 
 	//Khởi tạo GLEW
 	//đặt giá trị cho glewExperimental= GL_TRUE trước khi khở tạo GLEW
@@ -65,7 +63,7 @@ int main()
 
 		//Rendering
 		//xóa color buffer
-		glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(1.0f, 0.0f, 0.0f, 1.0f); 
 		glClear(GL_COLOR_BUFFER_BIT);
 
 
@@ -85,10 +83,16 @@ int main()
 	glfwTerminate();
 	return 0;
 }
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
+
+
+
+////Phần 4: bổ sung các hàm/ phương thức
+void key_callback1(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	std::cout << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	{ 
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
 }
 
