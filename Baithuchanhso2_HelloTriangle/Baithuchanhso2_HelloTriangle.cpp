@@ -19,7 +19,7 @@ const GLchar* vertexShaderSource = "#version 330 core\n"
 "layout (location=0) in vec3 position;\n"
 "void main()\n"
 "{\n"
-"gl_Position= vec4(position.x,position.y,position.z,1);\n"
+"gl_Position= vec4(position.x,-position.y,position.z,1);\n"
 "}\0";
 
 const GLchar* fragmentShaderSource = "#version 330 core\n"
@@ -104,7 +104,7 @@ int main(void)
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-	//bước 1: khai báo vertex input (vertex data)
+	//bước 1: khai báo vertex input (vertex data)của hình tam giác
 	GLfloat vertices[] = {
 		// tam giac 1
 		//x,y,z
@@ -147,7 +147,6 @@ int main(void)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//Buoc 3 Vẽ hình 1 hình tam giác
-
 		glUseProgram(shaderProgram);
 
 		glBindVertexArray(VAO);

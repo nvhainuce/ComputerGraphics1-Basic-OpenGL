@@ -148,12 +148,12 @@ int main(void)
 
 	
 		 
-		GLfloat timevalue = glfwGetTime()/100;
-		GLfloat greenvalue = (sin(timevalue)/2.0f) + 0.5f;
-		
+		GLfloat timevalue = glfwGetTime()/1;
+		GLfloat greenvalue = (sin(timevalue)/2.0f) + 0.8f;
+		      //lấy vị trí uniform ở shaderprogram                      tên uniform
 		GLint vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 		glUniform4f(vertexColorLocation, 0.0f, greenvalue, 0.0f, 1.0f);
-
+		
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
