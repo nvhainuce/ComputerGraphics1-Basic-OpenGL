@@ -3,3 +3,7 @@ class Shader1
 {
 };
 
+class Shader1
+{
+};
+

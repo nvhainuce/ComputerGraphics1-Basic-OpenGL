@@ -72,7 +72,7 @@ int main(void)
 
 	//bước 1: khai báo vertex input (vertex data)
 	GLfloat vertices[] = {
-		// vị trí - position      ///color         //texture coordinate (s,t)
+		// vị trí đỉnh - position      ///color         //texture coordinate (s,t)
 		-500.5f,-500.5f,0.0f,		1.0f,0.0f,0.0f,	   0.0f,0.0f,//bottom-left
 	    500.5f,-500.5f,0.0f,	    0.0f,1.0f,0.0f,    1.0f,0.0f,//bottom right
 		500.5f,500.5f,0.0f,	       0.0f,0.0f,1.0f,     1.0f,1.0f, //Top  right
@@ -173,9 +173,12 @@ int main(void)
 		glm::mat4 projection = glm::mat4(1.0f);
 
 			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.0f, 0.0f));//muốn xoay mô hình đối tượng 1 góc 30 9theo trục x
-			view = glm::translate(view,  glm::vec3(0.0f, 0.0f, -2000.0f));
-			projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f, 2500.0f);
-			//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
+			//model = glm::translate(view, glm::vec3(0.0f, 0.0f, 20000.0f));
+			view = glm::translate(view,  glm::vec3(0.0f, 0.0f, -3000.0f));
+			/*view = glm::rotate(model, glm::radians(45.0f), glm::vec3(1.0f, 0.0f, 0.0f)); */
+		//	projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f,35000.0f);
+			float Zoom = 10;
+			projection = glm::ortho(-(float)WIDTH* Zoom /2, (float)WIDTH* Zoom /2 ,-(float)HEIGHT* Zoom /2, (float)HEIGHT* Zoom /2, 0.1f, 1005000.0f);
 		//lấy vị trị của uniform
 			GLuint UniformLocation_model = glGetUniformLocation(ourShader.IDProgram,"model");
 			GLuint UniformLocation_view = glGetUniformLocation(ourShader.IDProgram,"view");

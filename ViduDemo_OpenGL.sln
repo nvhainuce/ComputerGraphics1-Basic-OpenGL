@@ -39,6 +39,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso7_Camera_Class
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Demo8_1Color-BasicLighting", "Demo8_1Color-BasicLighting\Demo8_1Color-BasicLighting.vcxproj", "{B4FBEFE2-413B-4386-B40B-0C48D3A95599}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Baithuchanhso4_Texture_2", "Baithuchanhso4_Texture_2\Baithuchanhso4_Texture_2.vcxproj", "{27757B8C-1A95-4504-8AD3-4F9427D35BF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -191,6 +193,14 @@ Global
 		{B4FBEFE2-413B-4386-B40B-0C48D3A95599}.Release|x64.Build.0 = Release|x64
 		{B4FBEFE2-413B-4386-B40B-0C48D3A95599}.Release|x86.ActiveCfg = Release|Win32
 		{B4FBEFE2-413B-4386-B40B-0C48D3A95599}.Release|x86.Build.0 = Release|Win32
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Debug|x64.ActiveCfg = Debug|x64
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Debug|x64.Build.0 = Debug|x64
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Debug|x86.ActiveCfg = Debug|Win32
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Debug|x86.Build.0 = Debug|Win32
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Release|x64.ActiveCfg = Release|x64
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Release|x64.Build.0 = Release|x64
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Release|x86.ActiveCfg = Release|Win32
+		{27757B8C-1A95-4504-8AD3-4F9427D35BF3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

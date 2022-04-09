@@ -216,9 +216,9 @@ int main(void)
 
 		//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 0.0f));//muốn xoay mô hình đối tượng 1 góc 30 9theo trục x
 		
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -13.0f));
-		projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f,100.0f);
-		//projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -6.0f));
+		//projection = glm::perspective(45.0f, (float)WIDTH / (float)HEIGHT, 0.1f,100.0f);
+	projection = glm::ortho(0.0f, (float)WIDTH ,0.0f, (float)HEIGHT, 0.1f, 100000.0f);
 	//lấy vị trị của uniform
 		GLuint UniformLocation_model = glGetUniformLocation(ourShader.IDProgram, "model");
 		GLuint UniformLocation_view = glGetUniformLocation(ourShader.IDProgram, "view");

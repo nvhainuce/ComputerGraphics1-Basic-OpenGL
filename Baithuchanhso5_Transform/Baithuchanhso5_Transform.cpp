@@ -24,7 +24,7 @@ GLFWwindow* window;
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
 const GLuint WIDTH = 800, HEIGHT = 600;
-
+GLdouble Donhay;
 
 int main(void)
 {
@@ -149,15 +149,17 @@ int main(void)
 
 		//Buoc 3 Vẽ hình 1 hình tam giác
 
-			///xác định ma trận biến đổi (các bạn muốn biến đổi đối tượng như nào )
-		glm::mat4 Trans = glm::mat4(1.0f);
+		///xác định ma trận biến đổi (các bạn muốn biến đổi đối tượng như nào )
+		glm::mat4 Trans = glm::mat4(1.0f); //khởi tao ma trận đơn vị 4x4
+		GLfloat timevalue = glfwGetTime() / 1;
 		//dịch chuyển theo x,y,z lần lượt là 0.5f,-0.5f,0.0f
-		Trans = glm::translate(Trans, glm::vec3(-0.5f, -0.0f,0.0f)); ///Trans=Trans*glm::vec3(0.0f, -0.5f,1.0f)
+        Trans = glm::translate(Trans, glm::vec3(0.0f,sin(timevalue * 10.0f),0.0f)); ///Trans=Trans*glm::vec3(-0.5f, 0.0f,0.0f)
 		   // scale nhỏ đi 0.3 lần     
-		//Trans = glm::scale(Trans, glm::vec3(0.3f, 0.3f, 0.3f)); ///Trans=Trans*glm::vec3(0.3f, 0.3f, 0.3f)
+	  // Trans = glm::scale(Trans, glm::vec3(0.3f, 0.3f, 0.3f)); ///Trans=Trans*glm::vec3(0.3f, 0.3f, 0.3f)
 		//	// roate 90 độ quanh trục y
-		Trans = glm::rotate(Trans, (float)glfwGetTime()/2.0f, glm::vec3(0.0f, 0.0f, 1.0f)); ///Trans=Trans*Rotate
+	//	Trans = glm::rotate(Trans, (float)glfwGetTime() * 1.0f, glm::vec3(0.0f, 0.0f, 1.0f)); ///Trans=Trans*Rotate
 		
+
 		////Tìm vị trí của uniform tên là "transform" trong Shader Programe là "ourShader"
 		GLuint UniformLocation_Transform = glGetUniformLocation(ourShader.IDProgram, "transform");
 		//sau có khi có vị trí uniform,
@@ -167,8 +169,19 @@ int main(void)
 		ourShader.use();
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
 		glBindVertexArray(0);
+
+
+		//vẽ tam giác 2 
+		 Trans = glm::mat4(1.0f); //khởi tao ma trận đơn vị 4x4
+		 Trans = glm::translate(Trans, glm::vec3(0.0f, sin(timevalue * 10.0f), 0.0f));
+		 /// sau có khi có vị trí uniform,
+		glUniformMatrix4fv(UniformLocation_Transform, 1, GL_FALSE, glm::value_ptr(Trans));
+
+		 glBindVertexArray(VAO);
+		 glDrawArrays(GL_TRIANGLES, 0, 3);
+		 glBindVertexArray(0);
 
 		///swap
 		glfwSwapBuffers(window);
@@ -188,4 +201,5 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	std::cout << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+		//Donhay += 0.5f;
 }

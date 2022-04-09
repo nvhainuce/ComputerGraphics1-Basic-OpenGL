@@ -66,7 +66,7 @@ int main(void)
 	glViewport(0, 0, widthW, heightW);;
 
 	//khởi tạo shader
-	Shader ourShader("vShader_b5.vertex", "fShader_b5 .frag");
+	Shader ourShader("vShader_b5.vertex", "fShader_b5.frag");
 
 
 	//bước 1: khai báo vertex input (vertex data)
